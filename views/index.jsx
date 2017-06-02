@@ -28,10 +28,28 @@ import React from 'react';
         }
     }
 
+   
+
    class Todo extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                checked: false
+            };
+        }
+
+        handleChange() {
+            this.setState(prevState => ({
+              checked: !prevState.checked
+            }));
+        }
+    
         render() {
             return (
                 <tr>
+                    <td style={{border: "1px solid black"}}>
+                        <input type="checkbox" checked={this.state.checked} onChange={this.handleChange.bind(this)}/>
+                    </td>
                     <td style={{border: "1px solid black"}}>{this.props.title}</td>
                     <td style={{border: "1px solid black"}}>{this.props.children}</td>
                 </tr>
@@ -39,8 +57,9 @@ import React from 'react';
         }
     }
 
+
     Todo.propTypes = {
-        title: React.PropTypes.string
+        title: React.PropTypes.string.isRequired
     };
 
     
