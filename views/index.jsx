@@ -33,19 +33,27 @@ import React from 'react';
         constructor(props) {
             super(props);
             this.state = {
-                checked: false
+                checked: false,
+                crossed: style.notCheckedTodo
             };
         }
 
-        handleChange() {
-            this.setState(prevState => ({
-              checked: !prevState.checked
-            }));
+        handleChange(e) {
+            
+            this.setState({
+              checked: e.target.checked
+            });
+            if (e.target.checked) {
+                this.setState({crossed: style.checkedTodo})
+            }
+            else {
+                this.setState({crossed: style.notCheckedTodo})
+            }
         }
     
         render() {
             return (
-                <tr>
+                <tr style={this.state.crossed}>
                     <td style={style.tableContent}>
                         <input type="checkbox" checked={this.state.checked} onChange={this.handleChange.bind(this)}/>
                     </td>
@@ -72,8 +80,14 @@ import React from 'react';
       }
     }
 
-     let style = {
-        tableContent: {
-            border: "1px solid black"
-        }
-    };
+    let style = {
+            checkedTodo: {
+                textDecoration: "line-through"
+            },
+            notCheckedTodo: {
+                textDecoration: "none"
+            },
+            tableContent: {
+                border: "1px solid black"
+            }
+        };
